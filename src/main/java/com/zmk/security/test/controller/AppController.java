@@ -24,7 +24,7 @@ public class AppController {
         return authentication.isAuthenticated();
     }
     @RequestMapping(value = "/login1", method = RequestMethod.GET)
-    public String loginPage(@RequestParam(value = "error", required = false) String error, 
+    public String login1Page(@RequestParam(value = "error", required = false) String error, 
                             @RequestParam(value = "logout", required = false) String logout,
                             Model model) {
         String errorMessge = null;
@@ -42,15 +42,47 @@ public class AppController {
         
         return "login2";
     }
-  
-
+    @RequestMapping(value="/", method = RequestMethod.GET)
+    public String index (HttpServletRequest request, HttpServletResponse response) {
+        if (!isAuthenticated()) {
+            return "redirect:/login1";
+        }
+        return "redirect:/home";
+    }
     @RequestMapping(value="/home", method = RequestMethod.GET)
-    public String login (HttpServletRequest request, HttpServletResponse response) {
+    public String home (HttpServletRequest request, HttpServletResponse response) {
         return "home";
     }
     @RequestMapping(value="/hello", method = RequestMethod.GET)
     public String hello (HttpServletRequest request, HttpServletResponse response) {
         return "hello";
     }
-
+    @RequestMapping(value="/403", method = RequestMethod.GET)
+    public String denied403 (HttpServletRequest request, HttpServletResponse response) {
+        return "403";
+    }
+    @RequestMapping(value="/user", method = RequestMethod.GET)
+    public String user (HttpServletRequest request, HttpServletResponse response) {
+        return "user";
+    }
+    @RequestMapping(value="/manager1", method = RequestMethod.GET)
+    public String manager1 (HttpServletRequest request, HttpServletResponse response) {
+        return "manager1";
+    }
+    @RequestMapping(value="/manager2", method = RequestMethod.GET)
+    public String manager2 (HttpServletRequest request, HttpServletResponse response) {
+        return "manager2";
+    }
+    @RequestMapping(value="/admin1", method = RequestMethod.GET)
+    public String admin1 (HttpServletRequest request, HttpServletResponse response) {
+        return "admin1";
+    }
+    @RequestMapping(value="/admin2", method = RequestMethod.GET)
+    public String admin2 (HttpServletRequest request, HttpServletResponse response) {
+        return "admin2";
+    }
+    @RequestMapping(value="/admin", method = RequestMethod.GET)
+    public String admin (HttpServletRequest request, HttpServletResponse response) {
+        return "admin";
+    }
 }
