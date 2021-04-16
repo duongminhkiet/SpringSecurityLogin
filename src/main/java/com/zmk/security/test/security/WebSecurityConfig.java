@@ -21,19 +21,7 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.context.annotation.Bean;
-//import org.springframework.context.annotation.Configuration;
-//import org.springframework.core.annotation.Order;
-//import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-//import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetailsService;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 
 @Configuration
 @EnableWebSecurity
@@ -74,68 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private LogoutHandler logoutHandler;
     
     
-/*
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-        .withUser("user").password(encoder().encode("123")).roles("USER")
-        .and()
-        .withUser("admin").password(encoder().encode("123")).roles("ADMIN");
-    }
-    @Bean
-    public static PasswordEncoder encoder() {
-        return new BCryptPasswordEncoder();
-    }
-    @Configuration
-    @Order(1)
-    public static class App1ConfigurationAdapter extends WebSecurityConfigurerAdapter {
 
-        public App1ConfigurationAdapter() {
-            super();
-        }
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication().withUser("admin").password(encoder().encode("123")).roles("ADMIN");
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/admin*").authorizeRequests().anyRequest().hasRole("ADMIN")
-            // log in
-            .and().formLogin().usernameParameter("username1").passwordParameter("password1").loginPage("/login1").loginProcessingUrl("/login_actionview_processing").failureUrl("/login1?error=true").defaultSuccessUrl("/home").permitAll()
-            // logout
-            .and().logout().logoutUrl("/logout_app1").logoutSuccessUrl("/login1?logout=true").deleteCookies("JSESSIONID").invalidateHttpSession(true).permitAll()
-            .and().exceptionHandling().accessDeniedPage("/403")
-            .and().csrf().disable();
-        }
-    }
-
-    @Configuration
-    @Order(2)
-    public static class App2ConfigurationAdapter extends WebSecurityConfigurerAdapter {
-
-        public App2ConfigurationAdapter() {
-            super();
-        }
-
-        @Override
-        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-            auth.inMemoryAuthentication().withUser("user").password(encoder().encode("123")).roles("USER");
-        }
-
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
-            http.antMatcher("/user*").authorizeRequests().anyRequest().hasRole("USER")
-            // log in
-            .and().formLogin().usernameParameter("username1").passwordParameter("password1").loginPage("/login1").loginProcessingUrl("/login_actionview_processing").failureUrl("/login1?error=true").defaultSuccessUrl("/home").permitAll()
-            // logout
-            .and().logout().logoutUrl("/logout_app1").logoutSuccessUrl("/login1?logout=true").deleteCookies("JSESSIONID").invalidateHttpSession(true).permitAll()
-            .and().exceptionHandling().accessDeniedPage("/403")
-            .and().csrf().disable();
-        }
-    }
-    */
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -184,40 +111,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .csrf()
             .disable();
     }
-    
-/*
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-            
-        http.antMatcher("/admin*").authorizeRequests().anyRequest().hasRole("ADMIN")
-        .and()
-            .formLogin().usernameParameter("username1").passwordParameter("password1")// parameters name at view login2.html
-            .loginPage("/login1")
-            .loginProcessingUrl("/login_actionview_processing")// action at view login2.html
-            .successHandler(new AuthenticationSuccessHandler() {
-                @Override
-                public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                        Authentication authentication) throws IOException, ServletException {
-                    redirectStrategy.sendRedirect(request, response, "/home");
-                }
-            })
-            //.defaultSuccessUrl("/home")// login thanh cong se chuyen vao day
-            .failureUrl("/login1?error=true")
-            .permitAll()
-        .and()
-            .logout()
-            .logoutUrl("/logout_app1")// if want logout -> run url: localhost:port/logout_app1
-            //.logoutSuccessUrl("/login1?logout=true")
-            .addLogoutHandler(logoutHandler)
-            //.logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler(HttpStatus.OK))
-            .invalidateHttpSession(true)
-            .permitAll()
-        .and()
-        	.exceptionHandling().accessDeniedPage("/403")
-        .and()
-            .csrf()
-            .disable();
-    }
-    */
-    
 }
